@@ -14,7 +14,7 @@ export class LubanApp {
   // vue app
   app: VueApp;
   // global pinia store
-  globlStore?: ReturnType<ReturnType<typeof AppStore>>;
+  globalStore?: ReturnType<ReturnType<typeof AppStore>>;
   // router
   baseURL: string = '/';
   router: Router;
@@ -72,7 +72,7 @@ export class LubanApp {
           stores: [AppStore, ...stores]
         });
         const appStore = getStore(AppStore);
-        self.globlStore = appStore;
+        self.globalStore = appStore;
 
         onSetup?.({ getStore });
 
