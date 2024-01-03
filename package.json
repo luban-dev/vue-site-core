@@ -1,7 +1,7 @@
 {
   "name": "@luban-ui/vue-site-core",
   "type": "module",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Vue Site Core",
   "author": "Season Chen",
   "license": "MIT",
@@ -9,16 +9,16 @@
     ".": {
       "import": {
         "types": "./dist/types/index.d.ts",
-        "default": "./dist/index.es.js"
+        "default": "./dist/es/index.js"
       },
       "require": {
         "types": "./dist/types/index.d.ts",
-        "default": "./dist/index.umd.js"
+        "default": "./dist/lib/index.js"
       }
     }
   },
-  "main": "./dist/index.es.js",
-  "module": "./dist/index.es.js",
+  "main": "./dist/lib/index.js",
+  "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
   "files": [
     "LICENSE",
@@ -37,9 +37,7 @@
     "style:dts": "ts-node-esm --experimentalSpecifierResolution node scripts/cssModulesDTS.ts",
     "release": "npm publish --access=public"
   },
-  "peerDependencies": {
-
-  },
+  "peerDependencies": {},
   "dependencies": {
     "axios": "^1.6.3",
     "pinia": "^2.1.7",
