@@ -1,7 +1,42 @@
 import axios, { AxiosHeaders } from 'axios';
-import type { ApiRequest, ApiRequestOptions, ApiRequestResponse } from '@/types';
 
-export const request: ApiRequest = <T>(opts: ApiRequestOptions) => {
+export interface ProgressEvent {
+  loaded: number;
+  total?: number;
+  progress?: number;
+  bytes?: number;
+  estimated?: number;
+  rate?: number;
+}
+
+export interface RequestOptions {
+  url: string | URL | Request;
+  baseURL?: string | URL;
+  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS' | 'HEAD';
+  query?: Record<string, string> | URLSearchParams;
+  data?: string | FormData | Record<string, any> | File | Blob | URLSearchParams | BufferSource;
+  headers?: Headers | Record<string, string>;
+  mode?: 'cors' | 'no-cors' | 'same-origin';
+  credentials?: 'omit' | 'same-origin' | 'include';
+  cache?: 'default' | 'no-store' | 'reload' | 'no-cache' | 'force-cache' | 'only-if-cached';
+  redirect?: 'follow' | 'error' | 'manual';
+  referrer?: string | 'no-referrer' | 'client' | URL;
+  referrerPolicy?: 'no-referrer' | 'no-referrer-when-downgrade' | 'origin' | 'origin-when-cross-origin' | 'unsafe-url';
+  integrity: string;
+  responseType?: 'json' | 'blob' | 'text' | 'stream' | 'arraybuffer';
+  timeout?: number;
+  onProgress?: (event: ProgressEvent) => void;
+  validateStatus?: (status: number) => boolean;
+}
+
+export interface RequestResponse<T> {
+  data: T;
+  status: number;
+  statusText: string;
+  headers: Headers | Record<string, string>;
+}
+
+export const request = <T>(opts: RequestOptions) => {
   const url = typeof opts.url === 'string' ? opts.url : opts.url.toString();
   const baseURL = typeof opts.baseURL === 'string' ? opts.baseURL : opts.baseURL?.toString();
 
@@ -45,7 +80,7 @@ export const request: ApiRequest = <T>(opts: ApiRequestOptions) => {
       status: res.status,
       statusText: res.statusText,
       data: res.data as T,
-      headers: headers as ApiRequestResponse<T>['headers']
+      headers: headers as RequestResponse<T>['headers']
     };
   });
 
