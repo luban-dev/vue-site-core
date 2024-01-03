@@ -1,7 +1,7 @@
 {
   "name": "@luban-ui/vue-site-core",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Vue Site Core",
   "author": "Season Chen",
   "license": "MIT",
@@ -35,16 +35,19 @@
     "build-dts": "rm -rf _types && rm -rf types && vue-tsc --declaration --emitDeclarationOnly --project tsconfig.build.json && mv _types/src dist/types && rm -rf _types",
     "build": "rm -rf dist && npm run build-lib && npm run build-es && npm run build-dts",
     "style:dts": "ts-node-esm --experimentalSpecifierResolution node scripts/cssModulesDTS.ts",
-    "pub": "npm publish --access=public"
+    "release": "npm publish --access=public"
+  },
+  "peerDependencies": {
+
   },
   "dependencies": {
+    "axios": "^1.6.3",
     "pinia": "^2.1.7",
     "pinia-di": "^3.1.2",
     "qs": "^6.11.2",
     "vue": "^3.3.13",
     "vue-i18n": "^9.8.0",
-    "vue-router": "^4.2.5",
-    "vue-router-better-scroller": "^0.0.0"
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",

@@ -6,18 +6,15 @@ import type { GetStore, InjectionProvide } from 'pinia-di';
 import { useProvideStores } from 'pinia-di';
 import { AppStore } from './store';
 import { App } from './components';
-import type { ApiRequest } from './types';
 import { initI18n } from './i18n';
 import { createRouter } from './utils';
+import { SVGUIDDirective } from './directives';
 
-export class Luban {
+export class LubanApp {
   // vue app
   app: VueApp;
   // global pinia store
   globlStore?: ReturnType<ReturnType<typeof AppStore>>;
-  apis = [];
-  services = [];
-  menus = [];
   // router
   baseURL: string = '/';
   router: Router;
@@ -37,6 +34,8 @@ export class Luban {
       langTypes?: ('path' | 'browser' | 'store')[];
       loadMessages?: (lang: string) => Promise<Record<string, any>>;
     };
+    // default directives
+    useDirectives: boolean;
     onSetup?: (args: { getStore: GetStore }) => void;
     onMounted?: (args: { getStore: GetStore }) => void;
   }) {
@@ -46,7 +45,8 @@ export class Luban {
       stores = [],
       onSetup,
       routes,
-      i18n
+      i18n,
+      useDirectives = true
     } = options;
 
     if (i18n) {
@@ -89,6 +89,10 @@ export class Luban {
     app.use(createPinia());
     app.use(this.router);
 
+    if (useDirectives) {
+      app.directive('svg-uuid', SVGUIDDirective);
+    }
+
     if (this.i18nConf) {
       app.use(this.i18nConf?.i18n);
     }
@@ -98,23 +102,5 @@ export class Luban {
 
   get i18n() {
     return this.i18nConf?.i18n || null;
-  }
-
-  defineApi(
-    opts: {
-      name: string;
-      request: typeof ApiRequest;
-    }
-  ) {
-    //
-    console.log(opts);
-  }
-
-  defineMenus() {
-    //
-  }
-
-  defineService() {
-    //
   }
 }
