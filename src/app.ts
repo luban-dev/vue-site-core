@@ -90,7 +90,7 @@ export class LubanApp {
     app.use(this.router);
 
     if (useDirectives) {
-      app.directive('svg-uuid', SVGUIDDirective);
+      app.directive('svg-uid', SVGUIDDirective);
     }
 
     if (this.i18nConf) {
