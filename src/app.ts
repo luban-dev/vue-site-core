@@ -103,4 +103,8 @@ export class LubanApp {
   get i18n() {
     return this.i18nConf?.i18n || null;
   }
+
+  get language() {
+    return this.i18nConf?.getLanguage();
+  }
 }
